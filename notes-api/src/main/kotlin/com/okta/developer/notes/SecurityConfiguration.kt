@@ -1,5 +1,6 @@
 package com.okta.developer.notes
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.Customizer.withDefaults
@@ -10,7 +11,9 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
-class SecurityConfiguration {
+class SecurityConfiguration(
+    @Value("\${allowed.origins}") private val allowedOrigins: List<String>
+) {
 
     @Bean
     fun webSecurity(http: HttpSecurity): SecurityFilterChain {
@@ -30,7 +33,7 @@ class SecurityConfiguration {
         val source = UrlBasedCorsConfigurationSource()
         val config = CorsConfiguration()
         config.allowCredentials = true
-        config.allowedOrigins = listOf("http://localhost:4200")
+        config.allowedOrigins = allowedOrigins
         config.allowedMethods = listOf("*")
         config.allowedHeaders = listOf("*")
         source.registerCorsConfiguration("/**", config)

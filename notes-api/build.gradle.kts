@@ -30,7 +30,11 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("tools.jackson.module:jackson-module-kotlin")
-	runtimeOnly("com.h2database:h2")
+	if (project.hasProperty("prod")) {
+		runtimeOnly("org.postgresql:postgresql")
+	} else {
+		runtimeOnly("com.h2database:h2")
+	}
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-rest-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
@@ -53,4 +57,14 @@ allOpen {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+val profile = if (project.hasProperty("prod")) "prod" else "dev"
+
+tasks.bootRun {
+    args("--spring.profiles.active=${profile}")
+}
+
+tasks.processResources {
+    rename("application-${profile}.properties", "application.properties")
 }

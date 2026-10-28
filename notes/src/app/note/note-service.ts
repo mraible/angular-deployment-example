@@ -3,6 +3,7 @@ import { Service, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Note } from './note';
 import { NoteFilter } from './note-filter';
+import { environment } from '../../environments/environment';
 
 export interface Page<T> {
   content: T[];
@@ -12,7 +13,7 @@ export interface Page<T> {
 @Service()
 export class NoteService {
   private readonly http = inject(HttpClient);
-  private readonly api = 'http://localhost:8080/api/notes';
+  private readonly api = `${environment.apiUrl}/api/notes`;
 
   find(filter: NoteFilter): Observable<Page<Note>> {
     const params: Record<string, string | number> = {
@@ -23,7 +24,7 @@ export class NoteService {
     if (filter.column && filter.direction) {
       params['sort'] = `${filter.column},${filter.direction}`;
     }
-    return this.http.get<Page<Note>>('http://localhost:8080/user/notes', { params });
+    return this.http.get<Page<Note>>(`${environment.apiUrl}/user/notes`, { params });
   }
 
   findById(id: string): Observable<Note> {

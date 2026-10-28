@@ -8,6 +8,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authHttpInterceptorFn, provideAuth0 } from '@auth0/auth0-angular';
 import { routes } from './app.routes';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../environments/environment';
 
 const config = {
   domain: 'dev-06bzs1cu.us.auth0.com',
@@ -17,7 +18,7 @@ const config = {
     audience: 'http://localhost:8080',
   },
   httpInterceptor: {
-    allowedList: ['http://localhost:8080/*'],
+    allowedList: [`${environment.apiUrl}/*`],
   },
 };
 
