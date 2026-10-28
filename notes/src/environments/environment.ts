@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://notes-api.example.com',
+  apiUrl: 'https://notes-api-i8yk.onrender.com',
 };
