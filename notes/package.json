@@ -29,7 +29,7 @@
     "@angular/cli": "^22.2.4",
     "@angular/compiler-cli": "^22.2.3",
     "@angular/localize": "^22.2.3",
-    "@oktadev/schematics": "file:../../../../../../../private/tmp/claude-501/-Users-mraible-dev/78a51e56-c78e-4e5f-ac19-30883dde58fd/scratchpad/oktadev-schematics-7.0.0.tgz",
+    "@oktadev/schematics": "7.0.0",
     "jsdom": "^30.1.3",
     "prettier": "^3.9.10",
     "typescript": "~6.0.3",
